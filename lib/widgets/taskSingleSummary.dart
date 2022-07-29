@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+import 'package:personal_planner/utils/appTheme.dart';
+
+class TaskSingleSummary extends StatelessWidget {
+  TaskSingleSummary({Key? key, required this.type}) : super(key: key);
+
+  final int type;
+
+  final List<List<Color>> gradientType = [
+    [AppTheme.nUrgentStart, AppTheme.nUrgentEnd],
+    [AppTheme.importantStart, AppTheme.importantEnd],
+    [AppTheme.urgentStart, AppTheme.urgentEnd]
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 10),
+        Stack(clipBehavior: Clip.none, children: [
+          Positioned(
+            left: -15,
+            child: Container(
+              height: 131,
+              width: 30,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment(-1, -1),
+                    end: Alignment(-1, 1),
+                    colors: gradientType[type]),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
+          ),
+          Container(
+              width: MediaQuery.of(context).size.width * 0.82,
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              decoration: BoxDecoration(
+                color: AppTheme.taskSummaryBg,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    flex: 9,
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Yooo?',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'need tet for my name is cooper di folo mara no wi are th epiraetes of ze sea of eazbakan hahahah come on to the west of the jungle wher we will ride the sea till seasets ',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Icon(Icons.delete, color: Colors.red),
+                        SizedBox(height: 20),
+                        Icon(Icons.edit, color: AppTheme.secondary),
+                        SizedBox(height: 20),
+                        Icon(Icons.check, color: AppTheme.primary),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+        ]),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+}

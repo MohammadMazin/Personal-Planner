@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:personal_planner/screens/home.dart';
+import 'package:personal_planner/screens/tasks.dart';
+import 'package:personal_planner/server/server.dart';
+import 'package:personal_planner/server/users.dart';
 import 'package:personal_planner/utils/appTheme.dart';
-import 'package:personal_planner/utils/inputField.dart';
-import 'package:personal_planner/utils/textLink.dart';
+import 'package:personal_planner/widgets/inputField.dart';
+import 'package:personal_planner/widgets/textLink.dart';
 import 'package:personal_planner/widgets/button.dart';
 
 class Login extends StatefulWidget {
@@ -12,6 +16,25 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String username = '';
+  String password = '';
+
+  void handleLogin(String username, String password) async {
+    // var val = await Users.addUser(username, password);
+    var val = await Users.getUser(username, password);
+    print(val);
+    print(val == null);
+
+    if (val != null) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          // builder: (context) => Home(),
+          builder: (context) => TasksScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,22 +60,28 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   // const SizedBox(height: 30),
-                  const Input(
+                  Input(
+                    onChanged: (text) => username = text,
                     leadingIcon: Icons.person,
                     hintText: 'Username',
                   ),
                   // const SizedBox(height: 20),
-                  const Input(
+                  Input(
+                    onChanged: (text) => password = text,
                     leadingIcon: Icons.key,
                     hintText: 'Password',
                     trailingIcon: Icons.remove_red_eye,
+                    obscuredText: true,
                   ),
                   // const SizedBox(height: 20),
                   const Align(
                       alignment: Alignment.centerRight,
                       child: TextLink(text: 'Forgot Password?')),
                   // const SizedBox(height: 20),
-                  Button(title: 'Login', onPressed: () {}),
+                  Button(
+                    title: 'Login',
+                    onPressed: () => handleLogin(username, password),
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,

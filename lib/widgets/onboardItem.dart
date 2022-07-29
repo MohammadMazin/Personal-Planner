@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:personal_planner/utils/appTheme.dart';
 
 class OnboardItem extends StatelessWidget {
@@ -21,10 +22,7 @@ class OnboardItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            imgUrl,
-            height: MediaQuery.of(context).size.height * 0.4,
-          ),
+          LottieBuilder.network(imgUrl),
           const SizedBox(
             height: 30,
           ),
