@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:personal_planner/utils/appTheme.dart';
 
 class TaskSingleSummary extends StatelessWidget {
-  TaskSingleSummary({Key? key, required this.type}) : super(key: key);
+  TaskSingleSummary(
+      {Key? key,
+      required this.title,
+      required this.description,
+      required this.type})
+      : super(key: key);
 
   final int type;
+  final String title;
+  final String description;
 
   final List<List<Color>> gradientType = [
     [AppTheme.nUrgentStart, AppTheme.nUrgentEnd],
@@ -49,9 +56,9 @@ class TaskSingleSummary extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'Yooo?',
+                            title,
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
@@ -59,7 +66,7 @@ class TaskSingleSummary extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            'need tet for my name is cooper di folo mara no wi are th epiraetes of ze sea of eazbakan hahahah come on to the west of the jungle wher we will ride the sea till seasets ',
+                            description,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                             style: TextStyle(

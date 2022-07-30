@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_planner/screens/home.dart';
 import 'package:personal_planner/screens/tasks.dart';
 import 'package:personal_planner/server/server.dart';
+import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/server/users.dart';
 import 'package:personal_planner/utils/appTheme.dart';
 import 'package:personal_planner/widgets/inputField.dart';
@@ -20,7 +21,6 @@ class _LoginState extends State<Login> {
   String password = '';
 
   void handleLogin(String username, String password) async {
-    // var val = await Users.addUser(username, password);
     var val = await Users.getUser(username, password);
     print(val);
     print(val == null);

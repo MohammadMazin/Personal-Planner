@@ -2,12 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:personal_planner/utils/appTheme.dart';
 import 'package:personal_planner/widgets/taskSingleSummary.dart';
 
-class TaskCategory extends StatelessWidget {
-  const TaskCategory({Key? key, required this.title, required this.count})
+class TaskCategory extends StatefulWidget {
+  const TaskCategory(
+      {Key? key, required this.title, required this.count, required this.data})
       : super(key: key);
 
   final String title;
+  final List<dynamic> data;
   final int count;
+
+  @override
+  State<TaskCategory> createState() => _TaskCategoryState();
+}
+
+class _TaskCategoryState extends State<TaskCategory> {
+  dynamic mapDataToTaskSummary() {
+    List<TaskSingleSummary> tasks = [];
+
+    widget.data.forEach((element) {
+      tasks.add(TaskSingleSummary(
+          title: element['title'],
+          description: element['desc'],
+          type: element['type']));
+    });
+
+    return tasks;
+
+    // var thiso = widget.data
+    //     .map((task) => {
+    //           TaskSingleSummary(
+    //               title: task["title"],
+    //               description: task["desc"],
+    //               type: task["type"])
+    //         })
+    //     .toList();
+    // print(thiso);
+    return TaskSingleSummary(
+      description: widget.data[0]['title'],
+      title: 'ss',
+      type: 0,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +54,11 @@ class TaskCategory extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Text(title,
+                  Text(widget.title,
                       style: TextStyle(
                         fontSize: 20,
                       )),
-                  Text('${count} Tasks',
+                  Text('${widget.count} Tasks',
                       style: TextStyle(
                         fontSize: 16,
                       )),
@@ -32,9 +67,19 @@ class TaskCategory extends StatelessWidget {
               Icon(Icons.arrow_drop_down),
             ],
           ),
-          TaskSingleSummary(type: 0),
-          TaskSingleSummary(type: 1),
-          TaskSingleSummary(type: 2),
+
+          Column(
+            children: mapDataToTaskSummary(),
+          )
+
+          // mapDataToTaskSummary(),
+
+          // data.map((task)=>{
+          //   return TaskSingleSummary(type: data["type"])
+          // }),
+
+          // TaskSingleSummary(type: 1),
+          // TaskSingleSummary(type: 2),
         ],
       ),
     );
