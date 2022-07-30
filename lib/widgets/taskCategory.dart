@@ -23,7 +23,8 @@ class _TaskCategoryState extends State<TaskCategory> {
       tasks.add(TaskSingleSummary(
           title: element['title'],
           description: element['desc'],
-          type: element['type']));
+          type: element['type'],
+          id: element['_id']));
     });
 
     return tasks;
@@ -37,11 +38,6 @@ class _TaskCategoryState extends State<TaskCategory> {
     //         })
     //     .toList();
     // print(thiso);
-    return TaskSingleSummary(
-      description: widget.data[0]['title'],
-      title: 'ss',
-      type: 0,
-    );
   }
 
   @override
@@ -67,19 +63,9 @@ class _TaskCategoryState extends State<TaskCategory> {
               Icon(Icons.arrow_drop_down),
             ],
           ),
-
           Column(
             children: mapDataToTaskSummary(),
           )
-
-          // mapDataToTaskSummary(),
-
-          // data.map((task)=>{
-          //   return TaskSingleSummary(type: data["type"])
-          // }),
-
-          // TaskSingleSummary(type: 1),
-          // TaskSingleSummary(type: 2),
         ],
       ),
     );

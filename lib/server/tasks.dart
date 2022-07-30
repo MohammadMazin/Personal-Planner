@@ -8,10 +8,21 @@ class Tasks {
     return result;
   }
 
-  static Future<dynamic> addTask(String userId, dynamic data) async {
-    //TODO
+  static Future<dynamic> addTask(
+      String userId, String title, String description, int type) async {
+    var data = {
+      "userId": ObjectId.fromHexString(userId),
+      "title": title,
+      "desc": description,
+      "type": type
+    };
 
-    var result = await MongoDb.collectionTasks.insertOne();
+    var result = await MongoDb.collectionTasks.insertOne(data);
+    return result;
+  }
+
+  static Future<dynamic> deleteTask(ObjectId id) async {
+    var result = await MongoDb.collectionTasks.deleteOne({"_id": id});
     return result;
   }
 }

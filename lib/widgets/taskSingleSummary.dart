@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/utils/appTheme.dart';
 
 class TaskSingleSummary extends StatelessWidget {
@@ -6,18 +7,24 @@ class TaskSingleSummary extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.description,
-      required this.type})
+      required this.type,
+      required this.id})
       : super(key: key);
 
   final int type;
   final String title;
   final String description;
+  final dynamic id;
 
   final List<List<Color>> gradientType = [
     [AppTheme.nUrgentStart, AppTheme.nUrgentEnd],
     [AppTheme.importantStart, AppTheme.importantEnd],
     [AppTheme.urgentStart, AppTheme.urgentEnd]
   ];
+
+  void handleDelete() {
+    Tasks.deleteTask(id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +88,9 @@ class TaskSingleSummary extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       children: [
-                        Icon(Icons.delete, color: Colors.red),
+                        InkWell(
+                            onTap: () => handleDelete(),
+                            child: Icon(Icons.delete, color: Colors.red)),
                         SizedBox(height: 20),
                         Icon(Icons.edit, color: AppTheme.secondary),
                         SizedBox(height: 20),
