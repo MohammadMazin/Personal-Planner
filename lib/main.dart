@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:personal_planner/screens/login.dart';
 import 'package:personal_planner/screens/onboarding.dart';
 import 'package:personal_planner/server/server.dart';
+import 'package:personal_planner/utils/userModel.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -21,14 +23,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Life Tracker',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ScopedModel<UserModel>(
+      model: UserModel(),
+      child: MaterialApp(
+        title: 'Life Tracker',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: showLogin ? Login() : Onboarding(),
+        home: Onboarding(),
       ),
-      // home: showLogin ? Login() : Onboarding(),
-      home: Onboarding(),
     );
   }
 }

@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:personal_planner/screens/addTask.dart';
 import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/utils/appTheme.dart';
+import 'package:personal_planner/utils/userModel.dart';
 import 'package:personal_planner/widgets/taskCategory.dart';
 import 'package:personal_planner/widgets/taskCount.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class TasksScreen extends StatefulWidget {
-  const TasksScreen({Key? key}) : super(key: key);
+  TasksScreen({Key? key, required this.userId}) : super(key: key);
+
+  // ignore: prefer_typing_uninitialized_variables
+  var userId;
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
@@ -16,20 +21,20 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   void initState() {
     super.initState();
-    getUsers();
+    getUsers(widget.userId);
   }
 
   List<dynamic> task0 = [];
   List<dynamic> task1 = [];
   List<dynamic> task2 = [];
 
-  Future<void> getUsers() async {
+  Future<void> getUsers(dynamic userId) async {
     setState(() {
       task0 = [];
       task1 = [];
       task2 = [];
     });
-    var taskList = await Tasks.getUserTasks('62e12319529a45d4c5bdd5ec');
+    var taskList = await Tasks.getUserTasks(userId);
     for (var task in taskList) {
       if (task["type"] == 0)
         setState(() {
@@ -70,7 +75,7 @@ class _TasksScreenState extends State<TasksScreen> {
       ),
       backgroundColor: AppTheme.background,
       body: RefreshIndicator(
-        onRefresh: () => getUsers(),
+        onRefresh: () => getUsers(widget.userId),
         child: Container(
           padding: const EdgeInsets.all(20),
           child: ListView(
@@ -84,6 +89,14 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontSize: MediaQuery.of(context).size.width * 0.12,
                       fontWeight: FontWeight.bold),
                 ),
+              ),
+              ScopedModelDescendant<UserModel>(
+                builder: (context, child, model) {
+                  return Text(
+                    'Welcome ${model.username}',
+                    style: TextStyle(color: AppTheme.secondary, fontSize: 18),
+                  );
+                },
               ),
               const SizedBox(height: 10),
               Row(

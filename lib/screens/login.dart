@@ -5,9 +5,11 @@ import 'package:personal_planner/server/server.dart';
 import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/server/users.dart';
 import 'package:personal_planner/utils/appTheme.dart';
+import 'package:personal_planner/utils/userModel.dart';
 import 'package:personal_planner/widgets/inputField.dart';
 import 'package:personal_planner/widgets/textLink.dart';
 import 'package:personal_planner/widgets/button.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,16 +22,16 @@ class _LoginState extends State<Login> {
   String username = '';
   String password = '';
 
-  void handleLogin(String username, String password) async {
+  void handleLogin(String username, String password, UserModel model) async {
     var val = await Users.getUser(username, password);
-    print(val);
-    print(val == null);
 
     if (val != null) {
+      model.handleLogin(val['username'], val['_id']);
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           // builder: (context) => Home(),
-          builder: (context) => TasksScreen(),
+          builder: (context) => TasksScreen(userId: val['_id']),
         ),
       );
     }
@@ -78,9 +80,13 @@ class _LoginState extends State<Login> {
                       alignment: Alignment.centerRight,
                       child: TextLink(text: 'Forgot Password?')),
                   // const SizedBox(height: 20),
-                  Button(
-                    title: 'Login',
-                    onPressed: () => handleLogin(username, password),
+                  ScopedModelDescendant<UserModel>(
+                    builder: (context, child, model) {
+                      return Button(
+                        title: 'Login',
+                        onPressed: () => handleLogin(username, password, model),
+                      );
+                    },
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -89,7 +95,6 @@ class _LoginState extends State<Login> {
                       Text('Not a member? ',
                           style: TextStyle(
                             fontSize: 16,
-                            // fontWeight: FontWeight.bold,
                           )),
                       TextLink(text: 'Create an Account Now'),
                     ],

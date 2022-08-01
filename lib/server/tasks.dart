@@ -2,16 +2,16 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:personal_planner/server/server.dart';
 
 class Tasks {
-  static Future<dynamic> getUserTasks(String userId) async {
+  static Future<dynamic> getUserTasks(ObjectId userId) async {
     var result = await MongoDb.collectionTasks
-        .find({"userId": ObjectId.parse(userId)}).toList();
+        .find({"userId": ObjectId.parse(userId.toHexString())}).toList();
     return result;
   }
 
   static Future<dynamic> addTask(
-      String userId, String title, String description, int type) async {
+      ObjectId userId, String title, String description, int type) async {
     var data = {
-      "userId": ObjectId.fromHexString(userId),
+      "userId": ObjectId.fromHexString(userId.toHexString()),
       "title": title,
       "desc": description,
       "type": type

@@ -8,14 +8,9 @@ class Users {
   }
 
   static Future<dynamic> getUser(String username, String password) async {
-    // var val = await MongoDb.collectionUsers.findOne(where
-    //     .eq("username", username)
-    //     .eq("password", password)
-    //     .fields(['username', 'password']));
-
     var val = await MongoDb.collectionUsers
         .findOne({"username": username, "password": password});
-    print('${username} , ${password}');
+
     return val;
   }
 }

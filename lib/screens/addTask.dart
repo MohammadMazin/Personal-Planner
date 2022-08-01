@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_planner/screens/tasks.dart';
 import 'package:personal_planner/server/tasks.dart';
+import 'package:personal_planner/utils/userModel.dart';
 import 'package:personal_planner/widgets/button.dart';
 import 'package:personal_planner/widgets/inputField.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../utils/appTheme.dart';
 
@@ -34,8 +36,9 @@ class _AddTaskState extends State<AddTask> {
       return Color.fromARGB(255, 201, 13, 13);
   }
 
-  dynamic handleAddTask() async {
-    await Tasks.addTask('62e12319529a45d4c5bdd5ec', title, description, type);
+  dynamic handleAddTask(UserModel model) async {
+    print(model.userId);
+    await Tasks.addTask(model.userId, title, description, type);
   }
 
   @override
@@ -115,14 +118,14 @@ class _AddTaskState extends State<AddTask> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
-                        Align(
+                        const Align(
                           alignment: Alignment.centerLeft,
                           child: Text('Set Task Priority',
                               style: TextStyle(
                                   fontSize: 16,
                                   color: Color.fromARGB(255, 50, 50, 50))),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         CupertinoSegmentedControl<int>(
@@ -143,12 +146,16 @@ class _AddTaskState extends State<AddTask> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30),
-                  Button(
-                      title: 'Add Task',
-                      onPressed: () async {
-                        handleAddTask();
-                      })
+                  const SizedBox(height: 30),
+                  ScopedModelDescendant<UserModel>(
+                    builder: (context, child, model) {
+                      return Button(
+                          title: 'Add Task',
+                          onPressed: () async {
+                            handleAddTask(model);
+                          });
+                    },
+                  )
                 ],
               ),
             ),
