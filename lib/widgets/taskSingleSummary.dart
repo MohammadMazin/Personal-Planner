@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:personal_planner/screens/editTask.dart';
 import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/utils/appTheme.dart';
 
@@ -24,6 +25,18 @@ class TaskSingleSummary extends StatelessWidget {
 
   void handleDelete() {
     Tasks.deleteTask(id);
+  }
+
+  void handleEdit(dynamic context) {
+    print(title);
+    print(description);
+    print(type);
+    print(id);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditTask(
+                id: id, title: title, description: description, type: type)));
   }
 
   @override
@@ -66,6 +79,8 @@ class TaskSingleSummary extends StatelessWidget {
                         children: [
                           Text(
                             title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
@@ -92,7 +107,9 @@ class TaskSingleSummary extends StatelessWidget {
                             onTap: () => handleDelete(),
                             child: Icon(Icons.delete, color: Colors.red)),
                         SizedBox(height: 20),
-                        Icon(Icons.edit, color: AppTheme.secondary),
+                        InkWell(
+                            onTap: () => handleEdit(context),
+                            child: Icon(Icons.edit, color: AppTheme.secondary)),
                         SizedBox(height: 20),
                         Icon(Icons.check, color: AppTheme.primary),
                       ],

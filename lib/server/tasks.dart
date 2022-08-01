@@ -25,4 +25,19 @@ class Tasks {
     var result = await MongoDb.collectionTasks.deleteOne({"_id": id});
     return result;
   }
+
+  static Future<dynamic> editTask(
+      String title, String description, int type, ObjectId id) async {
+    print(description);
+    print(title);
+    print(type);
+    var result = await MongoDb.collectionTasks
+        .updateOne(where.eq("_id", id), modify.set('title', title));
+    result = await MongoDb.collectionTasks
+        .updateOne(where.eq("_id", id), modify.set('desc', description));
+    result = await MongoDb.collectionTasks
+        .updateOne(where.eq("_id", id), modify.set('type', type));
+
+    return result;
+  }
 }
