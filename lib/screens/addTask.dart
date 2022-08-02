@@ -44,17 +44,19 @@ class _AddTaskState extends State<AddTask> {
         return Container(
             child: Column(
           children: [
-            LottieBuilder.network(
-              'https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+            LottieBuilder.asset(
+              'assets/success.json',
+              height: 250,
+              width: 250,
               repeat: false,
             ),
-            Text(
+            const Text(
               'Task Added Successfully',
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Button(
               title: 'Go Back To Home Screen',
               onPressed: () {

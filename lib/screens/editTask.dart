@@ -52,9 +52,11 @@ class _EditTaskState extends State<EditTask> {
         return Container(
             child: Column(
           children: [
-            LottieBuilder.network(
-              'https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+            LottieBuilder.asset(
+              'assets/success.json',
               repeat: false,
+              width: 250,
+              height: 250,
             ),
             Text(
               'Task Edited Successfully',

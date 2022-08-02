@@ -22,7 +22,7 @@ class OnboardItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          LottieBuilder.network(imgUrl),
+          LottieBuilder.asset(imgUrl),
           const SizedBox(
             height: 30,
           ),

@@ -31,22 +31,19 @@ class _OnboardingState extends State<Onboarding> {
             }),
             children: const [
               OnboardItem(
-                imgUrl:
-                    'https://assets7.lottiefiles.com/packages/lf20_6vxp1qs1.json',
+                imgUrl: 'assets/onboard1.json',
                 title: 'Simple Yet Powerful Tool to Manage Your Daily Tasks',
                 subtitle:
                     'Set task priorities, group tasks, get reminders and many more',
               ),
               OnboardItem(
-                imgUrl:
-                    'https://assets2.lottiefiles.com/packages/lf20_vo0zbstd.json',
+                imgUrl: 'assets/onboard2.json',
                 title: 'Keep Track of Your Daily Expenses',
                 subtitle:
                     'All your payment information in one place, making it easy for you know where your money is spent',
               ),
               OnboardItem(
-                imgUrl:
-                    'https://assets8.lottiefiles.com/packages/lf20_nzlsuz4z.json',
+                imgUrl: 'assets/onboard3.json',
                 title: 'Personal Planner, a Way to Organise Yourself Better',
                 subtitle: '',
               ),

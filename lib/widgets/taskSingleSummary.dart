@@ -63,8 +63,10 @@ class TaskSingleSummary extends StatelessWidget {
         return Container(
             child: Column(
           children: [
-            LottieBuilder.network(
-              'https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+            LottieBuilder.asset(
+              'assets/success.json',
+              height: 250,
+              width: 250,
               repeat: false,
             ),
             Text(

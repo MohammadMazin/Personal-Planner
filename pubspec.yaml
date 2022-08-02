@@ -39,6 +39,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   scoped_model: ^1.1.0
+  flutter_native_splash: ^2.0.1+1
+
+flutter_native_splash:
+  color: "#ffffff" #white
+  assets: assets/onboard1.png
 
 dev_dependencies:
   flutter_test:
