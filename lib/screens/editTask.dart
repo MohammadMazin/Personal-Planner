@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:personal_planner/screens/tasks.dart';
 import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/utils/userModel.dart';
@@ -40,6 +41,39 @@ class _EditTaskState extends State<EditTask> {
   dynamic handleEditTask(UserModel model) async {
     await Tasks.editTask(
         widget.title, widget.description, widget.type, widget.id);
+
+    showBottomModal(context);
+  }
+
+  void showBottomModal(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+            child: Column(
+          children: [
+            LottieBuilder.network(
+              'https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+              repeat: false,
+            ),
+            Text(
+              'Task Edited Successfully',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 10),
+            Button(
+              title: 'Go Back To Home Screen',
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
+      },
+    );
   }
 
   @override

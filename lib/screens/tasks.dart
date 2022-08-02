@@ -122,6 +122,9 @@ class _TasksScreenState extends State<TasksScreen> {
                   title: 'Important', count: task1.length, data: task1),
               const SizedBox(height: 20),
               TaskCategory(title: 'Urgent', count: task2.length, data: task2),
+              SizedBox(
+                height: 70,
+              )
             ],
           ),
         ),

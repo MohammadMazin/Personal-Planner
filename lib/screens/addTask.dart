@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:personal_planner/screens/tasks.dart';
 import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/utils/userModel.dart';
@@ -22,12 +23,6 @@ class _AddTaskState extends State<AddTask> {
   int type = 0;
 
   Color selectorColor() {
-    // if (type == 0)
-    //   return AppTheme.nUrgentEnd;
-    // else if (type == 1)
-    //   return AppTheme.importantStart;
-    // else
-    //   return AppTheme.urgentStart;
     if (type == 0) {
       return Color.fromARGB(255, 8, 160, 15);
     } else if (type == 1)
@@ -36,9 +31,41 @@ class _AddTaskState extends State<AddTask> {
       return Color.fromARGB(255, 201, 13, 13);
   }
 
-  dynamic handleAddTask(UserModel model) async {
-    print(model.userId);
-    await Tasks.addTask(model.userId, title, description, type);
+  dynamic handleAddTask(UserModel model, context) async {
+    await Tasks.addTask(model.userId, title, description, type)
+        .then((value) => print(value));
+    showBottomModal(context);
+  }
+
+  void showBottomModal(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+            child: Column(
+          children: [
+            LottieBuilder.network(
+              'https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+              repeat: false,
+            ),
+            Text(
+              'Task Added Successfully',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 10),
+            Button(
+              title: 'Go Back To Home Screen',
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
+      },
+    );
   }
 
   @override
@@ -152,7 +179,7 @@ class _AddTaskState extends State<AddTask> {
                       return Button(
                           title: 'Add Task',
                           onPressed: () async {
-                            handleAddTask(model);
+                            handleAddTask(model, context);
                           });
                     },
                   )

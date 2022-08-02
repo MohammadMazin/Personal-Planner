@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:personal_planner/screens/editTask.dart';
 import 'package:personal_planner/server/tasks.dart';
 import 'package:personal_planner/utils/appTheme.dart';
+import 'package:personal_planner/widgets/button.dart';
 
 class TaskSingleSummary extends StatelessWidget {
   TaskSingleSummary(
@@ -23,8 +25,65 @@ class TaskSingleSummary extends StatelessWidget {
     [AppTheme.urgentStart, AppTheme.urgentEnd]
   ];
 
-  void handleDelete() {
-    Tasks.deleteTask(id);
+  void showDeleteModal(context) {
+    showModalBottomSheet(
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.3,
+          minWidth: MediaQuery.of(context).size.width),
+      context: context,
+      builder: (context) {
+        return Container(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 10),
+            Text(
+              'Are you sure you want to delete task?',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 20),
+            Button(
+              title: 'Delete Task',
+              onPressed: () {
+                handleDelete(context);
+              },
+            )
+          ],
+        ));
+      },
+    );
+  }
+
+  void handleDelete(context) async {
+    await Tasks.deleteTask(id);
+    Navigator.pop(context);
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+            child: Column(
+          children: [
+            LottieBuilder.network(
+              'https://assets10.lottiefiles.com/packages/lf20_jbrw3hcz.json',
+              repeat: false,
+            ),
+            Text(
+              'Task Deleted Successfully',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 10),
+            Button(
+              title: 'Go Back To Home Screen',
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ));
+      },
+    );
   }
 
   void handleEdit(dynamic context) {
@@ -104,7 +163,7 @@ class TaskSingleSummary extends StatelessWidget {
                     child: Column(
                       children: [
                         InkWell(
-                            onTap: () => handleDelete(),
+                            onTap: () => showDeleteModal(context),
                             child: Icon(Icons.delete, color: Colors.red)),
                         SizedBox(height: 20),
                         InkWell(
