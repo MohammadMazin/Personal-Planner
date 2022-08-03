@@ -4,7 +4,7 @@ A todo app built built using Flutter and MongoDB (V1.0) The UI design was done i
 
 The goal for this project was to get familiar with Flutter, and build UIs from a given template (ie. Figma file) while also learning how to make CRUD operations in MongoDb.
 
-## Learnign Goals
+## Learning Goals
 - Designing a UI with Figma and integrate it into an application
 - Flutter
 - MongoDB
