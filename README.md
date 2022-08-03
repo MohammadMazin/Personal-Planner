@@ -47,4 +47,5 @@ The third goal of this project was to learn MongoDB and how to interact with it 
 - Rearranging index of tasks by dragging within the same category
 - Change catgory of tasks by dragging into different category
 - Filtering Tasks 
+- Dark Mode
 
